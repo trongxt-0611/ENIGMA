@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% block head %}
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    {% block styles %}
+    <!-- Bootstrap CSS -->
+    {{ bootstrap.load_css() }} {% endblock %}
+
+    <title>Your page title</title>
+    {% endblock %}
+    <script>
+      function handleUploadFile(event) {
+        var fileInput = document.getElementById("import");
+        console.log(fileInput.value);
+        var filePath = fileInput.value;
+        // Allowing file type
+        var allowedExtensions = /(\.txt)$/i;
+
+        if (!allowedExtensions.exec(filePath)) {
+          alert("Invalid file type, must be .txt extension!");
+          fileInput.value = "";
+          return false;
+        } else {
+          if (event.target && event.target.files[0]) {
+            const fileReader = new FileReader();
+            fileReader.onload = function (fileLoadedEvent) {
+              var textFromFileLoaded = fileLoadedEvent.target.result;
+              document.getElementById("inputTextToSave").value =
+                textFromFileLoaded;
+            };
+            fileReader.readAsText(event.target.files[0], "UTF-8");
+          }
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <!-- Your page content -->
+    {% block content %}
+    <div class="container">
+      <div class="row mb-5">
+        <h1>Enigma machine simulator</h1>
+      </div>
+      <div class="row">
+        <div>
+          <p>
+            This is default setting for Enigma machine, you can download and
+            make your own settings:
+            <a class="" href="{{url_for('download')}}">settings_sample</a>
+          </p>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label"
+            >Import your own engima machine settings file here:</label
+          >
+          <input
+            class="form-control form-control"
+            id="import"
+            type="file"
+            onchange="handleUploadFile(event)"
+            form="enigma-form"
+            name="settings"
+          />
+        </div>
+      </div>
+      <div class="row mt-3">
+        <div class="col-md-6">
+          <label class="form-label mt-3"
+            >Preview content of uploaded settings file:</label
+          >
+          <textarea
+            class="form-control"
+            rows="5"
+            id="inputTextToSave"
+            disabled
+          ></textarea>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label mt-3">Defaut settings</label>
+          <textarea class="form-control" rows="5" disabled>
+rotors="I,II,III"
+reflector="UKW-B"
+ringSettings="ABC"
+ringPositions="DEF"
+plugboard="AT BS DE FM IR KN LZ OW PV XY"</textarea
+          >
+        </div>
+      </div>
+      <div class="row mt-3">
+        <div class="col-md-6">
+          <form
+            id="enigma-form"
+            action="{{ url_for('handle_data') }}"
+            method="post"
+            enctype="multipart/form-data"
+          >
+            <div class="mb-3">
+              <label class="form-label"
+                >Enter text you want to encode or decode:</label
+              >
+              <textarea
+                type="text"
+                rows="5"
+                class="form-control"
+                name="input_text"
+              >
+{{req}}</textarea
+              >
+            </div>
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Result:</label>
+          <textarea
+            type="text"
+            rows="5"
+            class="form-control"
+            name="input_text"
+            disabled
+          >
+{{res}}</textarea
+          >
+        </div>
+      </div>
+      <footer
+        class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top"
+      >
+        <p class="col-md-4 mb-0 text-muted">Network Information Security</p>
+
+        <a
+          href="/"
+          class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none"
+        >
+          <svg class="bi me-2" width="40" height="32">
+            <use xlink:href="#bootstrap"></use>
+          </svg>
+        </a>
+
+        <ul class="nav col-md-4 justify-content-end">
+          <li class="nav-item">
+            <a href="/" class="nav-link px-2 text-muted">Home</a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link px-2 text-muted">Sources code</a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link px-2 text-muted">Pricing</a>
+          </li>
+        </ul>
+      </footer>
+    </div>
+    {% endblock %} {% block scripts %} {{ bootstrap.load_js() }} {% endblock %}
+  </body>
+</html>

@@ -1,0 +1,5 @@
+rotors="I,II,III"
+reflector="UKW-B"
+ringSettings="XYZ"
+ringPositions="ACB"
+plugboard="AT BS DE FM IR KN LZ OW PV XY"
