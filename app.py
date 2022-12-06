@@ -60,4 +60,4 @@ def handle_data():
     return render_template('index.html', req=input_text,res=res,uploaded_file_content=content)
 
 if __name__ == "__main__":
-  app.run(debug=True)
+  app.run(debug=True, host='0.0.0.0')
