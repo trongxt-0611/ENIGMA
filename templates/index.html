@@ -56,10 +56,10 @@
             <a class="" href="{{url_for('download')}}">settings_sample</a>
           </p>
         </div>
+        <label class="form-label"
+          >Import your own engima machine settings file here:</label
+        >
         <div class="col-md-6">
-          <label class="form-label"
-            >Import your own engima machine settings file here:</label
-          >
           <input
             class="form-control form-control"
             id="import"
@@ -69,18 +69,18 @@
             name="settings"
           />
         </div>
+        <div class="col-md-6">
+          <a class="btn btn-primary" href="{{url_for('reset_settings')}}"
+            >Reset to default setting</a
+          >
+        </div>
       </div>
       <div class="row mt-3">
         <div class="col-md-6">
-          <label class="form-label mt-3"
-            >Preview content of uploaded settings file:</label
+          <label class="form-label mt-3">Uploaded settings file:</label>
+          <textarea class="form-control" rows="5" id="inputTextToSave" disabled>
+{{uploaded_file_content}}</textarea
           >
-          <textarea
-            class="form-control"
-            rows="5"
-            id="inputTextToSave"
-            disabled
-          ></textarea>
         </div>
         <div class="col-md-6">
           <label class="form-label mt-3">Defaut settings</label>
@@ -134,28 +134,27 @@ plugboard="AT BS DE FM IR KN LZ OW PV XY"</textarea
       <footer
         class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top"
       >
-        <p class="col-md-4 mb-0 text-muted">Network Information Security</p>
+        <div class="row">
+          <p class="col-md-6 mb-0 text-muted">Network Information Security</p>
 
-        <a
-          href="/"
-          class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none"
-        >
-          <svg class="bi me-2" width="40" height="32">
-            <use xlink:href="#bootstrap"></use>
-          </svg>
-        </a>
-
-        <ul class="nav col-md-4 justify-content-end">
-          <li class="nav-item">
-            <a href="/" class="nav-link px-2 text-muted">Home</a>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link px-2 text-muted">Sources code</a>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link px-2 text-muted">Pricing</a>
-          </li>
-        </ul>
+          <ul class="nav col-md-6 justify-content-end">
+            <li class="nav-item">
+              <a href="/" class="nav-link px-2 text-muted">Home</a>
+            </li>
+            <li class="nav-item">
+              <a
+                href="https://github.com/trongxt-0611/ENIGMA"
+                class="nav-link px-2 text-muted"
+                >Sources code</a
+              >
+            </li>
+          </ul>
+        </div>
+        <div class="row">
+          @developed by <a href="https://github.com/trongxt-0611">@XuanTrong</a>
+          <a href="https://github.com/trongthai-23022">@TrongThai</a>
+          <a href="https://github.com/hobathanh">@BaThanh</a>
+        </div>
       </footer>
     </div>
     {% endblock %} {% block scripts %} {{ bootstrap.load_js() }} {% endblock %}
